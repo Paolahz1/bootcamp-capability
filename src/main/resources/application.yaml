@@ -1,3 +1,45 @@
 spring:
   application:
-    name: ability
+    name: capability-service
+  
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/capability_db
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    pool:
+      initial-size: 5
+      max-size: 20
+      max-idle-time: 30m
+  
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/bootcamp_reports_db}
+      auto-index-creation: true
+
+server:
+  port: 8082
+
+# External services configuration
+external-services:
+  technology:
+    base-url: http://localhost:8081
+    timeout: 5s
+  bootcamp:
+    base-url: http://localhost:8083
+    timeout: 5s
+  person:
+    base-url: http://localhost:8084
+    timeout: 5s
+
+# Logging configuration
+logging:
+  level:
+    com.bootcamp.capabilityservice: DEBUG
+    org.springframework.r2dbc: DEBUG
+
+# OpenAPI configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
